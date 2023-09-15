@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,11 +45,13 @@ public class DataController {
     private LapTimesMapper lapTimesMapper = new LapTimesMapper();
 
     @GetMapping("/drivers")
+    @CrossOrigin
     public Iterable<Drivers> getAllDrivers(){
         return driversRepository.findAll();
     }
 
     @GetMapping("/laptimes")
+    @CrossOrigin
     public Iterable<LapTimesDTO> getLapTime(@RequestParam(value = "raceId") Integer raceId, @RequestParam(value = "driverId") Integer driverId){
 
         return lapTimesRepository.findLapTimesByRaceIdAndDriverId(raceId, driverId).stream()
@@ -56,6 +59,7 @@ public class DataController {
     }
 
     @GetMapping("/races")
+    @CrossOrigin
     public List<RacesDTO> getRaces(@RequestParam(value = "season") Integer season){
         List<Object[]> l = racesRepository.findRacesByYear(season);
 
@@ -64,6 +68,7 @@ public class DataController {
     }
 
     @GetMapping("/results")
+    @CrossOrigin
     public List<ResultsDTO> getResults(@RequestParam(value = "raceId") Integer raceId){
         List<Object[]> list = resultsRepository.findResultsByRaceId(raceId);
 
